@@ -1,17 +1,38 @@
-import Link from 'next/link';
-import React from 'react'
+"use client";
+
+import Link from "next/link";
+import { useEffect } from "react";
+import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import createUser from "../actions/createUser";
 
 const RegisterPage = () => {
+  const [state, formAction] = useActionState(createUser, {});
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.error) toast.error(state.error);
+    if (state.success) {
+      toast.success("You can now log in!");
+      router.push("/login");
+    }
+  }, [state]);
+
   return (
     <div className="flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
-        <form>
+        <form action={formAction}>
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Register
           </h2>
 
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Name
             </label>
             <input
@@ -24,7 +45,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Email
             </label>
             <input
@@ -37,7 +61,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Password
             </label>
             <input
@@ -84,6 +111,6 @@ const RegisterPage = () => {
       </div>
     </div>
   );
-}
+};
 
-export default RegisterPage
+export default RegisterPage;
