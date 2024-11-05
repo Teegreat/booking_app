@@ -1,24 +1,24 @@
-'use client'
+"use client";
 
 import Heading from "@/components/Heading";
-import {useEffect} from "react";
-import { useActionState } from "react";
+import { useEffect } from "react";
+import { useFormState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import createRoom from "@/app/actions/createRoom";
 
 const AddRoomPage = () => {
-  const [state, formAction] = useActionState(createRoom, {});
+  const [state, formAction] = useFormState(createRoom, {});
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    if(state.error) toast.error(state.error)
-      if(state.success) {
-        toast.success('Room created successfully')
-        router.push('/')
-      }
-  })
+    if (state.error) toast.error(state.error);
+    if (state.success) {
+      toast.success("Room created successfully");
+      router.push("/");
+    }
+  });
 
   return (
     <>
@@ -59,7 +59,10 @@ const AddRoomPage = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="sqft" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="sqft"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Square Feet
             </label>
             <input
@@ -107,7 +110,10 @@ const AddRoomPage = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="address"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Address
             </label>
             <input
